@@ -1,11 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View, Image } from 'react-native';
+import React, { useEffect, useCallback, useLayoutEffect, useState } from 'react';
+import { Text, View, Image, FlatList } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
 
 import {
   Wrapper,
-  Container
+  Container,
+  Info,
+  InfoImage,
+  InfoTitle,
+  Description,
+  Genres,
+  GenresText,
+  Year,
+  Episodes,
+  EpisodesTitle,
+  EpisodeItem,
+  EpisodeItemText
 } from './styles';
 
 interface RouteParams {
@@ -23,14 +34,22 @@ interface Detail {
   off: string,
 }
 
+interface Episodes {
+  video_id: string,
+  category_id: string,
+  title: string,
+}
+
 const AnimeDetail: React.FC = () => {
   const [detail, setDetail] = useState({} as Detail);
+  const [episodes, setEpisodes] = useState<Episodes[]>([]);
   const route = useRoute();
   const routeParams = route.params as RouteParams;
+  const navigation = useNavigation();
 
   useEffect(() => {
     async function loadDetail(): Promise<void> {
-      await api.get('/api-animesbr-10.php', {
+      await api.get('/api-animesbr-11.php', {
         params: {
           info: routeParams.id
         }
@@ -42,19 +61,67 @@ const AnimeDetail: React.FC = () => {
     loadDetail();
   }, [routeParams]);
 
+  useEffect(() => {
+    async function loadEpisodes(): Promise<void> {
+      await api.get('/api-animesbr-11.php', {
+        params: {
+          cat_id: routeParams.id
+        }
+      }).then(response => {
+        setEpisodes(response.data);
+      });
+    }
+
+    loadEpisodes();
+  }, [routeParams]);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: detail.category_name ? detail.category_name : ""
+    })
+  }, [navigation, detail])
+
+  const navigateToVideoDetail = useCallback((id) => {
+    navigation.navigate('VideoDetail', { id });
+  }, [navigation]);
+
+  function splitText(text: string) {
+    if (text) {
+      var splitted = text.split(", "); 
+      return splitted;
+    }
+    return [];
+  }
+
+  const renderRow = ({item}) => {
+    return (
+      <EpisodeItem onPress={() => {navigateToVideoDetail(item.video_id)}}>
+        <EpisodeItemText>{item.title}</EpisodeItemText>
+      </EpisodeItem>
+    );
+  };
+
   return (
     <Wrapper>
-      <Container> 
-        <Image source={{ uri: `http://cdn.appanimeplus.tk/img/${detail.category_image}`, width: 135, height: 189 }} />
-        <Text style={{ color: '#FFFFFF'}}>{detail.category_name}</Text>  
-        <Text style={{ color: '#FFFFFF'}}>{detail.category_description}</Text>
-        <Text style={{ color: '#FFFFFF'}}>{detail.category_genres}</Text>
-        <Text style={{ color: '#FFFFFF'}}>{detail.ano}</Text>
-      {/* {detail.map((item) => (
-        <>
-          
-        </>
-      ))} */}
+      <Container>
+        <Info>
+          <InfoImage source={{ uri: `http://cdn.appanimeplus.tk/img/${detail.category_image}` }} />
+          {/* <InfoTitle>{detail.category_name}</InfoTitle> */}
+        </Info>
+        <Description style={{ color: '#FFFFFF'}}>{detail.category_description}</Description>
+        <Year>{detail.ano}</Year>
+        <Genres>
+        {splitText(detail.category_genres).map((item) => (
+          <GenresText>{item}</GenresText>
+        ))}
+        </Genres>
+        <Episodes>
+          <EpisodesTitle>Episódios</EpisodesTitle>
+          <FlatList
+            data={episodes}
+            renderItem={renderRow}
+          />
+        </Episodes>
       </Container>
     </Wrapper>
   );

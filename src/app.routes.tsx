@@ -32,6 +32,10 @@ const AppRoutes: React.FC = () => (
         options={{
           headerShown: true,
           gestureEnabled: false,
+          headerStyle: {
+            backgroundColor: '#121212',
+          },
+          headerTintColor: '#fff',
         }}
       />
 
@@ -41,6 +45,10 @@ const AppRoutes: React.FC = () => (
         options={{
           headerShown: true,
           gestureEnabled: false,
+          headerStyle: {
+            backgroundColor: '#121212',
+          },
+          headerTintColor: '#fff',
         }}
       />
     </App.Navigator>

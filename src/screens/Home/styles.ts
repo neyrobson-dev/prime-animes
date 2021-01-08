@@ -51,6 +51,7 @@ export const ItemTitle = styled.Text`
 
 export const ItemImage = styled.Image`
   align-self: center;
+  border-radius: 5px;
 `;
 
 // export const LatestList = styled(
@@ -85,8 +86,8 @@ export const LatestList = styled.View`
 
 export const LatestItem = styled.TouchableOpacity`
   background: #121212;
-  width: 50%;
-  height: 240px;
+  width: 33.33%;
+  height: 189px;
   margin-bottom: 48px;
 `;
 
