@@ -99,7 +99,7 @@ export const LatestItemImage = styled.Image`
 `;
 
 export const LatestItemTitle = styled.Text`
-  color: #fff;
+  color: #e2e2e2;
   font-size: 12px;
   font-weight: bold;
   margin: 0 8px;

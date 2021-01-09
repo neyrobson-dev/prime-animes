@@ -1,17 +1,170 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Text, View } from 'react-native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 import {
-  Container
+  Wrapper,
+  Header,
+  Container,
+  CategoryList,
+  CategoryItem,
+  CategoryItemTitle,
 } from './styles';
 
 const Category: React.FC = () => {
+  const { navigate } = useNavigation();
+  const categories = [
+    {
+      name: "Aventura",
+      slug: "aventura",
+    },
+    {
+      name: "Ação",
+      slug: "acao",
+    },
+    {
+      name: "Comédia",
+      slug: "comedia",
+    },
+    {
+      name: "Drama",
+      slug: "drama",
+    },
+    {
+      name: "Dublado",
+      slug: "dublado",
+    },
+    {
+      name: "Echi",
+      slug: "ecchi",
+    },
+    {
+      name: "Escolar",
+      slug: "escolar",
+    },
+    {
+      name: "Esport",
+      slug: "esporte",
+    },
+    {
+      name: "Fantasia",
+      slug: "fantasia",
+    },
+    {
+      name: "Filme",
+      slug: "filme",
+    },
+    {
+      name: "Harém",
+      slug: "harem",
+    },
+    {
+      name: "Histórico",
+      slug: "historico",
+    },
+    {
+      name: "Jogo",
+      slug: "jogo",
+    },
+    {
+      name: "Josei",
+      slug: "josei",
+    },
+    {
+      name: "Magia",
+      slug: "magia",
+    },
+    {
+      name: "Mecha",
+      slug: "mecha",
+    },
+    {
+      name: "Militar",
+      slug: "militar",
+    },
+    {
+      name: "Mistério",
+      slug: "misterio",
+    },
+    {
+      name: "OVA",
+      slug: "ova",
+    },
+    {
+      name: "Poderes",
+      slug: "poderes",
+    },
+    {
+      name: "Psicologico",
+      slug: "psicologico",
+    },
+    {
+      name: "Romance",
+      slug: "romance",
+    },
+    {
+      name: "Samurai",
+      slug: "samurai",
+    },
+    {
+      name: "SCI-FI",
+      slug: "sci-fi",
+    },
+    {
+      name: "Seinen",
+      slug: "seinen",
+    },
+    {
+      name: "Shoujo",
+      slug: "shoujo",
+    },
+    {
+      name: "Shounen",
+      slug: "shounen",
+    },
+    {
+      name: "Slice of Life",
+      slug: "slice_of_life",
+    },
+    {
+      name: "Sobrenatural",
+      slug: "sobrenatural",
+    },
+    {
+      name: "Suspense",
+      slug: "suspense",
+    },
+    {
+      name: "Terror",
+      slug: "terror",
+    },
+    {
+      name: "Yaoi",
+      slug: "yaoi",
+    },
+    {
+      name: "Yuri",
+      slug: "yuri",
+    }
+  ];
+
+  const navigateToListCategory = useCallback((name, slug) => {
+    navigate('ListCategory', { name: name, slug: slug });
+  }, [navigate]);
+
   return (
-    <Container>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Categorias</Text>
-      </View>
-    </Container>
+    <Wrapper>
+      <Header />
+      <Container>
+        <CategoryList>
+          {categories.map((item) => (
+            <CategoryItem key={item.slug} onPress={() => { navigateToListCategory(item.name, item.slug) }}>                    
+              <CategoryItemTitle>{item.name}</CategoryItemTitle>
+            </CategoryItem>
+          ))}
+        </CategoryList>
+      </Container>
+    </Wrapper>
   );
 };
 

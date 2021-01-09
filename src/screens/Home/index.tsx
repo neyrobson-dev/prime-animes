@@ -79,7 +79,7 @@ const Home: React.FC = () => {
         </Category>
         <Category>
           <CategoryText>Últimos Episódios</CategoryText>
-          <LatestList>                     
+          <LatestList>
             {latest.map((item) => (
               <LatestItem key={item.category_id} onPress={() => {navigateToVideoDetail(item.video_id)}}>                    
                 <LatestItemImage source={{ uri: `http://cdn.appanimeplus.tk/img/${item.category_image}`, width: 135, height: 189 }} />
