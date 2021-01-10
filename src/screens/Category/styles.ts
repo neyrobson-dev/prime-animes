@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import Constants from 'expo-constants';
 import { FlatList } from 'react-native';
 
 export const Wrapper = styled.SafeAreaView`
@@ -7,11 +8,18 @@ export const Wrapper = styled.SafeAreaView`
 `;
 
 export const Header = styled.View`
+  margin-top: ${Constants.statusBarHeight}px;
   height: 50px;
-  padding: 0 16px;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+`;
+
+export const HeaderText = styled.Text`
+  margin: 8px 16px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #e2e2e2;
 `;
 
 export const Container = styled.ScrollView``;

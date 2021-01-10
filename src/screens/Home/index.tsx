@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import {
   Wrapper,
   Header,
+  HeaderText,
   Container,
   Category,
   CategoryText,
@@ -34,7 +35,7 @@ interface Anime {
 }
 
 const Home: React.FC = () => {
-  const { navigate } = useNavigation();
+  const navigation = useNavigation();
   const [latest, setLatest] = useState<Latest[]>([]);
   const [animes, setAnimes] = useState<Anime[]>([]);
 
@@ -52,20 +53,22 @@ const Home: React.FC = () => {
   }, []);
 
   const navigateToAnimeDetail = useCallback((id) => {
-    navigate('AnimeDetail', { id });
-  }, [navigate]);
+    navigation.navigate('AnimeDetail', { id });
+  }, [navigation]);
 
   const navigateToVideoDetail = useCallback((id) => {
-    navigate('VideoDetail', { id });
-  }, [navigate]);
+    navigation.navigate('VideoDetail', { id });
+  }, [navigation]);
 
   return (
     <Wrapper>
-      <Header />
+      <Header>
+        <HeaderText>Prime Animes</HeaderText>
+      </Header>
       <Container>
-        <Category>
+        <Category >
           <CategoryText>Populares</CategoryText>
-          <ListContent>
+          <ListContent style={{ backgroundColor: '#121212', paddingTop: 24 }}>
           {animes.map((item) => (
               <Item key={item.id} onPress={() => {navigateToAnimeDetail(item.id)}}>
                   <ItemImage source={{ uri: `http://cdn.appanimeplus.tk/img/${item.category_image}`, width: 135, height: 189 }} />
@@ -83,7 +86,7 @@ const Home: React.FC = () => {
             {latest.map((item) => (
               <LatestItem key={item.category_id} onPress={() => {navigateToVideoDetail(item.video_id)}}>                    
                 <LatestItemImage source={{ uri: `http://cdn.appanimeplus.tk/img/${item.category_image}`, width: 135, height: 189 }} />
-                <LatestItemTitle>{ ((item.title).length > 35) ? (((item.title).substring(0, 35-3)) + '...') : item.title }</LatestItemTitle>
+                <LatestItemTitle>{ ((item.title).length > 20) ? (((item.title).substring(0, 20-3)) + '...') : item.title }</LatestItemTitle>
               </LatestItem>
             ))}
           </LatestList>

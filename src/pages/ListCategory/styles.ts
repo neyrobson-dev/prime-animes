@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 export const Wrapper = styled.SafeAreaView`
   background: #000000;
   flex: 1;
-  padding: 8px 16px;
+  padding: 0 16px;
 `;
 
 export const Container = styled.ScrollView``;
@@ -13,10 +13,10 @@ export const LatestList = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
+  margin: 8px 0;
 `;
 
 export const LatestItem = styled.TouchableOpacity`
-  background: #121212;
   width: 33.33%;
   height: 189px;
   margin-bottom: 48px;

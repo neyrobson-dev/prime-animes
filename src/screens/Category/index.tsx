@@ -5,6 +5,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import {
   Wrapper,
   Header,
+  HeaderText,
   Container,
   CategoryList,
   CategoryItem,
@@ -43,7 +44,7 @@ const Category: React.FC = () => {
       slug: "escolar",
     },
     {
-      name: "Esport",
+      name: "Esporte",
       slug: "esporte",
     },
     {
@@ -154,7 +155,9 @@ const Category: React.FC = () => {
 
   return (
     <Wrapper>
-      <Header />
+      <Header>
+        <HeaderText>Prime Animes</HeaderText>
+      </Header>
       <Container>
         <CategoryList>
           {categories.map((item) => (

@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import Constants from 'expo-constants';
 import { FlatList } from 'react-native';
 import { Latest } from './index';
 
@@ -10,11 +11,18 @@ export const Wrapper = styled.SafeAreaView`
 export const Container = styled.ScrollView``;
 
 export const Header = styled.View`
+  margin-top: ${Constants.statusBarHeight}px;
   height: 50px;
-  padding: 0 16px;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+`;
+
+export const HeaderText = styled.Text`
+  margin: 8px 16px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #e2e2e2;
 `;
 
 export const Category = styled.View``;
@@ -23,7 +31,10 @@ export const CategoryText = styled.Text`
   margin: 8px 16px;
   font-size: 20px;
   font-weight: bold;
-  color: #e2e2e2;  
+  color: #e2e2e2;
+  padding-left: 16px;
+  border-left-width: 2px;
+  border-left-color: red;
 `;
 
 export const ListContent = styled.ScrollView.attrs(() => ({
@@ -54,38 +65,15 @@ export const ItemImage = styled.Image`
   border-radius: 5px;
 `;
 
-// export const LatestList = styled(
-//   FlatList as new () => FlatList<Latest>,
-// ).attrs({
-//   numColumns: 2,
-// })`
-//   padding: 0 16px;
-// `;
-
 export const LatestList = styled.View`
   flex: 1;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: flex-start;  
+  align-items: flex-start;
   padding: 0 16px;
 `;
 
-// export const LatestItem = styled.TouchableOpacity`
-// background: #fff;
-// padding: 16px 16px;
-// border-radius: 5px;
-// margin: 8px;
-// flex: 1;
-// `;
-
-// background: #fff;
-//   padding: 16px 16px;
-//   border-radius: 5px;
-//   margin: 8px;
-//   flex: 1;
-
 export const LatestItem = styled.TouchableOpacity`
-  background: #121212;
   width: 33.33%;
   height: 189px;
   margin-bottom: 48px;
