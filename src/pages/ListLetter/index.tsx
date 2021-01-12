@@ -13,8 +13,7 @@ import {
 } from './styles';
 
 interface RouteParams {
-    name: string;
-    slug: string;
+    letter: string;
 }
 
 interface Anime {
@@ -23,7 +22,7 @@ interface Anime {
     category_image: string,
 }
 
-const ListCategory: React.FC = () => {
+const ListLetter: React.FC = () => {
     const [animes, setAnimes] = useState<Anime[]>([]);
     const [loading, setLoading] = useState(false);
     const [count, setCount] = useState(0);
@@ -36,9 +35,10 @@ const ListCategory: React.FC = () => {
       async function loadDetail(): Promise<void> {
         await api.get('/api-animesbr-10.php', {
         params: {
-          categoria: routeParams.slug
+          letra: routeParams.letter
         }
         }).then(response => {
+          console.log(response.data);
           setAnimes(response.data);
           setLoading(false);
         });
@@ -49,7 +49,7 @@ const ListCategory: React.FC = () => {
 
     useLayoutEffect(() => {
       navigation.setOptions({
-        title: `Categoria: ${(routeParams.name ? routeParams.name : "")}`
+        title: `Letra: ${(routeParams.letter ? routeParams.letter : "")}`
       })
     }, [navigation, routeParams]);
 
@@ -81,4 +81,4 @@ const ListCategory: React.FC = () => {
     );
 }
 
-export default ListCategory;
+export default ListLetter;

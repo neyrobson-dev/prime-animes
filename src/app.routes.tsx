@@ -7,6 +7,7 @@ import TabRoutes from './tab.routes';
 import AnimeDetail from './pages/AnimeDetail';
 import VideoDetail from './pages/VideoDetail';
 import ListCategory from './pages/ListCategory';
+import ListLetter from './pages/ListLetter';
 
 const App = createStackNavigator();
 
@@ -56,6 +57,19 @@ const AppRoutes: React.FC = () => (
       <App.Screen
         name="ListCategory"
         component={ListCategory}
+        options={{
+          headerShown: true,
+          gestureEnabled: false,
+          headerStyle: {
+            backgroundColor: '#121212',
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+      <App.Screen
+        name="ListLetter"
+        component={ListLetter}
         options={{
           headerShown: true,
           gestureEnabled: false,

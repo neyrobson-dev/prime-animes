@@ -8,6 +8,10 @@ import {
   Wrapper,
   Header,
   HeaderText,
+  Letter,
+  LetterContent,
+  LetterButton,
+  LetterText,
   Container,
   Category,
   CategoryText,
@@ -39,14 +43,16 @@ const Home: React.FC = () => {
   const [latest, setLatest] = useState<Latest[]>([]);
   const [animes, setAnimes] = useState<Anime[]>([]);
 
+  const alf = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","U","V","W","X","Y","Z"];
+
   const windowWidth = Dimensions.get('window').width;
 
   useEffect(() => {
-    api.get('/api-animesbr-11.php?populares').then(response => {
+    api.get('/api-animesbr-10.php?populares').then(response => {
       setAnimes(response.data);
     });
 
-    api.get('/api-animesbr-11.php?latest').then(response => {
+    api.get('/api-animesbr-10.php?latest').then(response => {
       // console.log(response.data);
       setLatest(response.data);
     });
@@ -60,12 +66,25 @@ const Home: React.FC = () => {
     navigation.navigate('VideoDetail', { id });
   }, [navigation]);
 
+  const navigateToListLetter = useCallback((letter) => {
+    navigation.navigate('ListLetter', { letter: letter });
+  }, [navigation]);
+
   return (
     <Wrapper>
       <Header>
         <HeaderText>Prime Animes</HeaderText>
       </Header>
-      <Container>
+      <Letter>
+        <LetterContent>
+        {alf.map((item) => (
+          <LetterButton onPress={() => {navigateToListLetter(item)}}>
+            <LetterText>{item}</LetterText>
+          </LetterButton>
+        ))}
+        </LetterContent>
+      </Letter>
+      <Container>        
         <Category >
           <CategoryText>Populares</CategoryText>
           <ListContent style={{ backgroundColor: '#121212', paddingTop: 24 }}>

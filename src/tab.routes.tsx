@@ -28,7 +28,7 @@ const TabRoutes: React.FC = () => (
     <Tab.Screen
       options={{
         tabBarIcon: ({ color }) => <Feather size={20} name="home" color={color} />,
-        title: 'Inicio',        
+        title: 'Inicio',
       }}
       name="Home"
       component={Home}

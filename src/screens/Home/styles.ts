@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import Constants from 'expo-constants';
 import { FlatList } from 'react-native';
 import { Latest } from './index';
+import { RectButton } from 'react-native-gesture-handler';
 
 export const Wrapper = styled.SafeAreaView`
   background: #000000;
@@ -23,6 +24,26 @@ export const HeaderText = styled.Text`
   font-size: 20px;
   font-weight: bold;
   color: #e2e2e2;
+`;
+
+export const Letter = styled.View`
+  flex-direction: row;
+  align-items: center;  
+  justify-content: space-between;
+  padding: 16px 16px;
+  background: #2c2c2c;
+`;
+
+export const LetterContent = styled.ScrollView.attrs(() => ({
+  horizontal: true,
+  showsHorizontalScrollIndicator: false,
+}))``;
+
+export const LetterButton = styled.TouchableOpacity``;
+
+export const LetterText = styled.Text`
+  color: #ededed;
+  margin: 0 16px;
 `;
 
 export const Category = styled.View``;
