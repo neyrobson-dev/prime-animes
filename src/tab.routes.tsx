@@ -6,6 +6,8 @@ import { Feather } from '@expo/vector-icons';
 import Home from './screens/Home';
 import Category from './screens/Category';
 import Search from './screens/Search';
+import Download from './screens/Download';
+import Favorite from './screens/Favorite';
 
 const Tab = createBottomTabNavigator();
 
@@ -58,16 +60,16 @@ const TabRoutes: React.FC = () => (
         title: 'Downloads',
       }}
       name="Download"
-      component={Category}
+      component={Download}
     />
 
     <Tab.Screen
       options={{
-        tabBarIcon: ({ color }) => <Feather size={20} name="menu" color={color} />,
-        title: 'Mais',
+        tabBarIcon: ({ color }) => <Feather size={20} name="star" color={color} />,
+        title: 'Favoritos',
       }}
-      name="More"
-      component={Category}
+      name="Favorite"
+      component={Favorite}
     />
   </Tab.Navigator>
 )

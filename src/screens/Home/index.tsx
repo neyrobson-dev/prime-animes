@@ -73,7 +73,7 @@ const Home: React.FC = () => {
   return (
     <Wrapper>
       <Header>
-        <HeaderText>Prime Animes</HeaderText>
+        <HeaderText>Animes Mobile</HeaderText>
       </Header>
       <Letter>
         <LetterContent>

@@ -1064,7 +1064,7 @@
   resolved "https://registry.yarnpkg.com/@expo/config-types/-/config-types-40.0.0-beta.2.tgz#4fea4ef5654d02218b02b0b3772529a9ce5b0471"
   integrity sha512-t9pHCQMXOP4nwd7LGXuHkLlFy0JdfknRSCAeVF4Kw2/y+5OBbR9hW9ZVnetpBf0kORrekgiI7K/qDaa3hh5+Qg==
 
-"@expo/config@^3.3.18":
+"@expo/config@3.3.22", "@expo/config@^3.3.18":
   version "3.3.22"
   resolved "https://registry.yarnpkg.com/@expo/config/-/config-3.3.22.tgz#af77c98a5b4773d05467e79357ddd7950d99baf6"
   integrity sha512-BzahndK+Uxsvzui1+9QiJXptjVPgbSCQ3saNVF4N3Wrxjyr0WXHNp3Gz3VAGkoHhoBlxZheslmiNoMwjG25xjw==
@@ -1092,6 +1092,14 @@
     json5 "^1.0.1"
     lodash "^4.17.15"
     write-file-atomic "^2.3.0"
+
+"@expo/metro-config@^0.1.16":
+  version "0.1.48"
+  resolved "https://registry.yarnpkg.com/@expo/metro-config/-/metro-config-0.1.48.tgz#91ed86abbafdcfa833a0afcd639bfef9611e7719"
+  integrity sha512-U2VkpNoecfCgju5Cfk9RyulrCwqWiGPCV1RSZPhP/yb6pSUyuQfYaxH5ULmrsYztp8hSfV0mqaVq5LPyhzczkw==
+  dependencies:
+    "@expo/config" "3.3.22"
+    metro-react-native-babel-transformer "^0.58.0"
 
 "@expo/vector-icons@^12.0.0":
   version "12.0.2"
@@ -2684,6 +2692,15 @@ expo-status-bar@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.0.3.tgz#62b4d6145680abd43ba6ecfa465f835e88bf6263"
   integrity sha512-/Orgla1nkIrfswNHbuAOTbPVq0g3+GrhoQVk7MRafY2dwrFLgXhaPExS+eN2hpmzqPv2LG5cqAZDCQUAjmZYBQ==
+
+expo-updates@~0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/expo-updates/-/expo-updates-0.4.1.tgz#74288a9950d137df62577278879c2ce61f9d6be1"
+  integrity sha512-nRUJlGWaZ2o2shKpfYs9ZOMQjyozQYc+6i3baOpptTJCBDHL5cq7IzjEwfyI1Eii6MqP2pMmvT+kLJiux25tMw==
+  dependencies:
+    "@expo/metro-config" "^0.1.16"
+    fbemitter "^2.1.1"
+    uuid "^3.4.0"
 
 expo@~40.0.0:
   version "40.0.0"

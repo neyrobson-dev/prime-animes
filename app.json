@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "PrimeAnimes",
-    "slug": "PrimeAnimes",
+    "name": "Animes Mobile",
+    "slug": "AnimesMobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#121212"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -18,15 +18,15 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.ncoding.primeanimes",
+      "bundleIdentifier": "com.ncoding.animesmobile",
       "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#121212"
       },
-      "package": "com.ncoding.primeanimes",
+      "package": "com.ncoding.animesmobile",
       "versionCode": 1
     },
     "web": {

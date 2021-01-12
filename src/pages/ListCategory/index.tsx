@@ -56,6 +56,12 @@ const ListCategory: React.FC = () => {
     const navigateToAnimeDetail = useCallback((id) => {
       navigation.navigate('AnimeDetail', { id });
     }, [navigation]);
+
+    // const search = useCallback((text) => {
+    //   animes.filter(function (item) {
+    //     return item.category_name == text
+    //   });
+    // }, []);
     
     if (loading) {
       return(
