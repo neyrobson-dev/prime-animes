@@ -29,7 +29,7 @@ export const CategoryList = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;  
-  padding: 0 16px;
+  margin: 8px 0;
 `;
 
 export const CategoryItem = styled.TouchableOpacity`
@@ -38,14 +38,14 @@ export const CategoryItem = styled.TouchableOpacity`
   justify-content: center;
   background: #121212;
   border-color: #333;
-  border-width: 1px;;
-  width: 29%;
+  border-width: 1px;
+  width: 30%;
   height: 70px;
-  margin: 8px;  
+  margin: 8px 4px;
 `;
 
 export const CategoryItemTitle = styled.Text`
-  color: #fff;
+  color: #e2e2e2;
   font-size: 12px;
   font-weight: bold;
   margin: 0 8px;

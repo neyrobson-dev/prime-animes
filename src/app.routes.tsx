@@ -1,7 +1,9 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/Feather';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+
+import { TouchableOpacity } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 
 import TabRoutes from './tab.routes';
 import AnimeDetail from './pages/AnimeDetail';
@@ -38,6 +40,14 @@ const AppRoutes: React.FC = () => (
             backgroundColor: '#121212',
           },
           headerTintColor: '#fff',
+          headerRight: () => (
+            <TouchableOpacity>
+              <FontAwesome name="star-o" size={24} color="white"/>
+            </TouchableOpacity>
+          ),
+          headerRightContainerStyle: {
+            marginRight: 16,
+          },
         }}
       />
 

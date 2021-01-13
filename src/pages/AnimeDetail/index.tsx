@@ -1,7 +1,9 @@
-import React, { useEffect, useCallback, useLayoutEffect, useState } from 'react';
-import { Text, View, Image, FlatList } from 'react-native';
+import React, { useEffect, useCallback, useLayoutEffect, useMemo, useState } from 'react';
+import { TouchableOpacity, FlatList } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
+import { Feather, FontAwesome, AntDesign } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {
   Wrapper,
@@ -43,6 +45,8 @@ interface Episodes {
 const AnimeDetail: React.FC = () => {
   const [detail, setDetail] = useState({} as Detail);
   const [episodes, setEpisodes] = useState<Episodes[]>([]);
+  const [favorites, setFavorites] = useState<Detail[]>([]);
+  const [isFavorite, setIsFavorite] = useState(false);
   const route = useRoute();
   const routeParams = route.params as RouteParams;
   const navigation = useNavigation();
@@ -75,15 +79,50 @@ const AnimeDetail: React.FC = () => {
     loadEpisodes();
   }, [routeParams]);
 
+  useEffect(() => {
+    async function loadFavorites() {
+  //     // await AsyncStorage.removeItem('@favorites');
+      const value = await AsyncStorage.getItem('@favorites');
+      setFavorites(JSON.parse(value));
+      console.log(value);
+    }
+
+    loadFavorites();
+  }, []);
+
+  useEffect(() => {
+    async function saveFavorites() {      
+      await AsyncStorage.setItem('@favorites', JSON.stringify(favorites));
+    }
+
+    saveFavorites();
+  }, [favorites]);
+
+  const toggleFavorite = useCallback(async (animeId) => {
+    if (isFavorite) {
+      setFavorites(favorites.filter(item => item.id !== animeId))
+    } else {
+      setFavorites(favorites => [...favorites, detail]);
+    }
+    setIsFavorite(!isFavorite);
+  }, [isFavorite, detail]);
+
+  const favoriteIconName = useMemo(() => (isFavorite ? 'star' : 'star-o'), [isFavorite],);
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: detail.category_name ? detail.category_name : ""
+      title: detail.category_name ? detail.category_name : "",
+      headerRight: () => (
+        <TouchableOpacity onPress={() => toggleFavorite(detail.id)}>
+          <FontAwesome name={favoriteIconName} size={24} color="gold"/>
+        </TouchableOpacity>
+      ),
     })
-  }, [navigation, detail])
+  }, [navigation, detail, favoriteIconName])  
 
   const navigateToVideoDetail = useCallback((id) => {
     navigation.navigate('VideoDetail', { id });
-  }, [navigation]);
+  }, [navigation]);  
 
   function splitText(text: string) {
     if (text) {
