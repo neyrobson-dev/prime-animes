@@ -83,11 +83,19 @@ const AnimeDetail: React.FC = () => {
     async function loadFavorites() {
   //     // await AsyncStorage.removeItem('@favorites');
       const value = await AsyncStorage.getItem('@favorites');
-      setFavorites(JSON.parse(value));
-      console.log(value);
+      const obj = JSON.parse(value);
+      if (obj.length > 0)
+        setFavorites(obj);
+      else
+        setFavorites([]);
     }
-
     loadFavorites();
+
+    favorites.filter(item => item.id === detail.id);
+    console.log(favorites);
+    // if (favorites.length > 0)
+    //   setIsFavorite(true);
+
   }, []);
 
   useEffect(() => {
