@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { TouchableOpacity } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, Feather } from '@expo/vector-icons';
 
 import TabRoutes from './tab.routes';
 import AnimeDetail from './pages/AnimeDetail';
@@ -61,6 +61,14 @@ const AppRoutes: React.FC = () => (
             backgroundColor: '#121212',
           },
           headerTintColor: '#fff',
+          headerRight: () => (
+            <TouchableOpacity>
+              <Feather name="download" size={24} color="white"/>
+            </TouchableOpacity>
+          ),
+          headerRightContainerStyle: {
+            marginRight: 16,
+          },
         }}
       />
 

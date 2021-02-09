@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useCallback, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -23,8 +23,10 @@ const Favorite: React.FC = () => {
     const [animes, setAnimes] = useState<Anime[]>([]);
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
+
+    console.log(animes.length);
     
-    useEffect(() => {
+    useEffect(() => {        
         async function loadFavorites() {      
             const value = await AsyncStorage.getItem('@favorites');
             const obj = JSON.parse(value);
@@ -33,11 +35,11 @@ const Favorite: React.FC = () => {
                 setAnimes(obj);
             else
                 setAnimes([]);
-        // await AsyncStorage.removeItem('@favorites');
         }
-    
-        loadFavorites();
-    }, []);
+
+        if (animes.length === 0)
+            loadFavorites();
+    }, [animes]);
 
     const navigateToAnimeDetail = useCallback((id) => {
         navigation.navigate('AnimeDetail', { id });

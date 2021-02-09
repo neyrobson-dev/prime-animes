@@ -29,9 +29,6 @@
       "package": "com.ncoding.animesmobile",
       "versionCode": 1
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
     "androidNavigationBar": {
       "backgroundColor": "#121212"
     }

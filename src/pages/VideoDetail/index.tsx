@@ -1,10 +1,12 @@
 import React, { useEffect, useLayoutEffect, useCallback, useState } from 'react';
-import { Text, View, Image, Platform, ActivityIndicator } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import { Text, View, Image, Platform, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { Feather, FontAwesome } from '@expo/vector-icons';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
 import { Video, VideoFullscreenUpdateEvent } from 'expo-av';
 import * as ScreenOrientation from 'expo-screen-orientation';
+import * as FileSystem from 'expo-file-system';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {
   Wrapper,
@@ -31,6 +33,7 @@ const VideoDetail: React.FC = () => {
   const [stream, setStream] = useState({} as Stream);
   const [videoLoad, setVideoLoad] = useState(false);
   const [epsodeId, setEpsodeId] = useState("");
+  const [progress, setProgress] = useState<Number>(0);
   const route = useRoute();
   const routeParams = route.params as RouteParams;
   const navigation = useNavigation();
@@ -55,7 +58,12 @@ const VideoDetail: React.FC = () => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: stream.title ? stream.title : ""
+      title: stream.title ? stream.title : "",
+      headerRight: () => (
+        <TouchableOpacity onPress={donwloadFile}>
+          <Feather name="download" size={24} color="white"/>
+        </TouchableOpacity>
+      ),
     })
   }, [navigation, stream])
 
@@ -99,6 +107,24 @@ const VideoDetail: React.FC = () => {
   //     </View>
   //   );
   // }
+
+  const donwloadFile = async () => {
+    var fileName = stream.title;    
+    const fileUri = FileSystem.documentDirectory + `${fileName.replace(/ /g, "-")}.mp4`;
+    const url = stream.location;
+  
+    let downloadObject = FileSystem.createDownloadResumable(
+      url,
+      fileUri
+    );
+
+    try {
+      const response = await downloadObject.downloadAsync();
+      console.log('Finished downloading to ', response?.uri);
+    } catch (e) {
+      console.error(`Erro ao fazer download: ${e}`);
+    }
+  }  
 
   return (
     <Wrapper>
