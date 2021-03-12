@@ -54,23 +54,23 @@ const TabRoutes: React.FC = () => (
       component={Search}
     />
 
-    <Tab.Screen
+    {/* <Tab.Screen
       options={{
         tabBarIcon: ({ color }) => <Feather size={20} name="download" color={color} />,
         title: 'Downloads',
       }}
       name="Download"
       component={Download}
-    />
+    /> */}
 
-    <Tab.Screen
+    {/* <Tab.Screen
       options={{
         tabBarIcon: ({ color }) => <Feather size={20} name="star" color={color} />,
         title: 'Favoritos',
       }}
       name="Favorite"
       component={Favorite}
-    />
+    /> */}
   </Tab.Navigator>
 )
 

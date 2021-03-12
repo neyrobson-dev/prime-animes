@@ -1,28 +1,22 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { StatusBar, FlatList, View, Text } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import api from '../../services/api';
 import { useNavigation } from '@react-navigation/native';
 
+import Header from '../../components/Header';
+import Hero from '../../components/Hero';
+import Movies from '../../components/Movies';
+
 import {
-  Wrapper,
-  Header,
-  HeaderText,
-  Letter,
-  LetterContent,
-  LetterButton,
-  LetterText,
   Container,
-  Category,
-  CategoryText,
-  ListContent,
-  Item,
-  ItemTitle,
-  ItemImage,
-  LatestList,
-  LatestItem,
-  LatestItemTitle,
-  LatestItemImage,
+  Poster,
+  Gradient,
+  Episodes,
+  EpisodesLabel,
+  MoviePoster,
+  MovieCard,
+  MovieTitle
 } from './styles';
 
 export interface Latest {
@@ -32,87 +26,61 @@ export interface Latest {
   video_id: string;
 }
 
-interface Anime {
-  id: string,
-  category_name: string,
-  category_image: string,
-}
-
 const Home: React.FC = () => {
   const navigation = useNavigation();
   const [latest, setLatest] = useState<Latest[]>([]);
-  const [animes, setAnimes] = useState<Anime[]>([]);
-
-  const alf = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","U","V","W","X","Y","Z"];
-
-  const windowWidth = Dimensions.get('window').width;
 
   useEffect(() => {
-    api.get('/api-animesbr-10.php?populares').then(response => {
-      setAnimes(response.data);
-    });
-
     api.get('/api-animesbr-10.php?latest').then(response => {
-      // console.log(response.data);
       setLatest(response.data);
     });
   }, []);
-
-  const navigateToAnimeDetail = useCallback((id) => {
-    navigation.navigate('AnimeDetail', { id });
-  }, [navigation]);
 
   const navigateToVideoDetail = useCallback((id) => {
     navigation.navigate('VideoDetail', { id });
   }, [navigation]);
 
-  const navigateToListLetter = useCallback((letter) => {
-    navigation.navigate('ListLetter', { letter: letter });
-  }, [navigation]);
-
   return (
-    <Wrapper>
-      <Header>
-        <HeaderText>Animes Mobile</HeaderText>
-      </Header>
-      <Letter>
-        <LetterContent>
-        {alf.map((item) => (
-          <LetterButton onPress={() => {navigateToListLetter(item)}}>
-            <LetterText>{item}</LetterText>
-          </LetterButton>
-        ))}
-        </LetterContent>
-      </Letter>
-      <Container>        
-        <Category >
-          <CategoryText>Populares</CategoryText>
-          <ListContent style={{ backgroundColor: '#121212', paddingTop: 24 }}>
-          {animes.map((item) => (
-              <Item key={item.id} onPress={() => {navigateToAnimeDetail(item.id)}}>
-                  <ItemImage source={{ uri: `http://cdn.appanimeplus.tk/img/${item.category_image}`, width: 135, height: 189 }} />
-                  <ItemTitle>{ ((item.category_name).length > 35) ?
-                      (((item.category_name).substring(0, 35-3)) + '...') :
-                      item.category_name }
-                  </ItemTitle>
-              </Item>
-          ))}
-          </ListContent>
-        </Category>
-        <Category>
-          <CategoryText>Últimos Episódios</CategoryText>
-          <LatestList>
-            {latest.map((item) => (
-              <LatestItem key={item.category_id} onPress={() => {navigateToVideoDetail(item.video_id)}}>                    
-                <LatestItemImage source={{ uri: `http://cdn.appanimeplus.tk/img/${item.category_image}`, width: 135, height: 189 }} />
-                <LatestItemTitle>{ ((item.title).length > 20) ? (((item.title).substring(0, 20-3)) + '...') : item.title }</LatestItemTitle>
-              </LatestItem>
-            ))}
-          </LatestList>
-        </Category>     
+    <>
+      <StatusBar translucent backgroundColor='transparent' barStyle='light-content' />
+      <Container>
+        <Poster source={require('../../assets/poster.jpg')}>
+          <Gradient
+            locations={[0, 0.2, 0.6, 0.93]}
+            colors={[
+              'rgba(0,0,0,0.5)',
+              'rgba(0,0,0,0.0)',
+              'rgba(0,0,0,0.0)',
+              'rgba(0,0,0,1)'
+            ]}>
+              <Header />
+              <Hero />
+          </Gradient>
+        </Poster>
+
+        <Movies label='Populares' item='/api-animesbr-10.php?populares' />
+        {/* <Movies label='Favoritos' item='/api-animesbr-10.php?populares' /> */}
+
+        <Episodes>
+          <EpisodesLabel>Novos Episódios</EpisodesLabel>
+          <FlatList
+            data={latest}
+            keyExtractor={item => item.category_id}
+            numColumns={3}
+            renderItem={({ item }) => {
+              return (
+                <MovieCard onPress={() => {navigateToVideoDetail(item.video_id)}}>
+                  <MoviePoster resizeMode='cover' source={{ uri: `http://cdn.appanimeplus.tk/img/${item.category_image}`}} />
+                  <MovieTitle>{ ((item.title).length > 20) ? (((item.title).substring(0, 20-3)) + '...') : item.title }</MovieTitle>
+                </MovieCard>
+              );
+            }}
+          />
+        </Episodes>
+
       </Container>
-    </Wrapper>
-  );
+    </>
+  )
 };
 
 export default Home;

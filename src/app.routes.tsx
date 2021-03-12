@@ -18,6 +18,9 @@ const AppRoutes: React.FC = () => (
     <App.Navigator
       screenOptions={{
         headerShown: false,
+        cardStyle: {
+          backgroundColor: '#000'
+        }
       }}
       initialRouteName="TabRoutes"
     >
