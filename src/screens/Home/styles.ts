@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import { Dimensions } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient'
+import { LinearGradient } from 'expo-linear-gradient';
 import Constants from 'expo-constants';
 
 export const Container = styled.ScrollView`
@@ -50,4 +50,4 @@ export const MovieTitle = styled.Text`
   font-size: 12px;
   font-weight: bold;
   margin: 0 8px;
-`
+`;

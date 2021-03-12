@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://appanimeplus.tk',
+  baseURL: 'http://172.28.2.24:8000/api',
+  //'https://appanimeplus.tk',
 });
 
 export default api;

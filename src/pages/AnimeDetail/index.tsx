@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useLayoutEffect, useMemo, useState } from 'react';
-import { TouchableOpacity, FlatList } from 'react-native';
+import { TouchableOpacity, FlatList, View } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
 import { Feather, FontAwesome, AntDesign } from '@expo/vector-icons';
@@ -10,6 +10,7 @@ import {
   Container,
   Info,
   InfoImage,
+  Gradient,
   InfoTitle,
   Description,
   Genres,
@@ -18,7 +19,10 @@ import {
   Episodes,
   EpisodesTitle,
   EpisodeItem,
-  EpisodeItemText
+  EpisodeItemText,
+  Header,
+  Action,
+  ActionText
 } from './styles';
 
 interface RouteParams {
@@ -36,7 +40,7 @@ interface Detail {
   off: string,
 }
 
-interface Episodes {
+interface EpisodesList {
   video_id: string,
   category_id: string,
   title: string,
@@ -44,7 +48,7 @@ interface Episodes {
 
 const AnimeDetail: React.FC = () => {
   const [detail, setDetail] = useState({} as Detail);
-  const [episodes, setEpisodes] = useState<Episodes[]>([]);
+  const [episodes, setEpisodes] = useState<EpisodesList[]>([]);
   const [favorites, setFavorites] = useState<Detail[]>([]);
   const [isFavorite, setIsFavorite] = useState(false);
   const route = useRoute();
@@ -53,80 +57,84 @@ const AnimeDetail: React.FC = () => {
 
   useEffect(() => {
     async function loadDetail(): Promise<void> {
-      await api.get('/api-animesbr-10.php', {
-        params: {
-          info: routeParams.id
-        }
-      }).then(response => {
-        setDetail(response.data[0]);
+      // await api.get('/api-animesbr-10.php', {
+      //   params: {
+      //     info: routeParams.id
+      //   }
+      // }).then(response => {
+      //   setDetail(response.data[0]);
+      // });
+      await api.get(`/anime-info/${routeParams.id}`).then(response => {
+        setDetail(response.data.info);
+        setEpisodes(response.data.episodes);
       });
     }
 
     loadDetail();
   }, [routeParams]);
 
-  useEffect(() => {
-    async function loadEpisodes(): Promise<void> {
-      await api.get('/api-animesbr-10.php', {
-        params: {
-          cat_id: routeParams.id
-        }
-      }).then(response => {
-        setEpisodes(response.data);
-      });
-    }
+  // useEffect(() => {
+  //   async function loadEpisodes(): Promise<void> {
+  //     await api.get('/api-animesbr-10.php', {
+  //       params: {
+  //         cat_id: routeParams.id
+  //       }
+  //     }).then(response => {
+  //       setEpisodes(response.data);
+  //     });
+  //   }
 
-    loadEpisodes();
-  }, [routeParams]);
+  //   loadEpisodes();
+  // }, [routeParams]);
 
-  useEffect(() => {
-    async function loadFavorites() {
-  //     // await AsyncStorage.removeItem('@favorites');
-      const value = await AsyncStorage.getItem('@favorites');
-      const obj = JSON.parse(value);
-      if (obj.length > 0)
-        setFavorites(obj);
-      else
-        setFavorites([]);
-    }
-    loadFavorites();
+  // useEffect(() => {
+  //   async function loadFavorites() {
+  // //     // await AsyncStorage.removeItem('@favorites');
+  //     const value = await AsyncStorage.getItem('@favorites');
+  //     const obj = JSON.parse(value);
+  //     if (obj.length > 0)
+  //       setFavorites(obj);
+  //     else
+  //       setFavorites([]);
+  //   }
+  //   loadFavorites();
 
-    favorites.filter(item => item.id === detail.id);
-    console.log(favorites);
-    // if (favorites.length > 0)
-    //   setIsFavorite(true);
+  //   favorites.filter(item => item.id === detail.id);
+  //   console.log(favorites);
+  //   // if (favorites.length > 0)
+  //   //   setIsFavorite(true);
 
-  }, []);
+  // }, []);
 
-  useEffect(() => {
-    async function saveFavorites() {      
-      await AsyncStorage.setItem('@favorites', JSON.stringify(favorites));
-    }
+  // useEffect(() => {
+  //   async function saveFavorites() {      
+  //     await AsyncStorage.setItem('@favorites', JSON.stringify(favorites));
+  //   }
 
-    saveFavorites();
-  }, [favorites]);
+  //   saveFavorites();
+  // }, [favorites]);
 
-  const toggleFavorite = useCallback(async (animeId) => {
-    if (isFavorite) {
-      setFavorites(favorites.filter(item => item.id !== animeId))
-    } else {
-      setFavorites(favorites => [...favorites, detail]);
-    }
-    setIsFavorite(!isFavorite);
-  }, [isFavorite, detail]);
+  // const toggleFavorite = useCallback(async (animeId) => {
+  //   if (isFavorite) {
+  //     setFavorites(favorites.filter(item => item.id !== animeId))
+  //   } else {
+  //     setFavorites(favorites => [...favorites, detail]);
+  //   }
+  //   setIsFavorite(!isFavorite);
+  // }, [isFavorite, detail]);
 
-  const favoriteIconName = useMemo(() => (isFavorite ? 'star' : 'star-o'), [isFavorite],);
+  // const favoriteIconName = useMemo(() => (isFavorite ? 'star' : 'star-o'), [isFavorite],);
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      title: detail.category_name ? detail.category_name : "",
-      headerRight: () => (
-        <TouchableOpacity onPress={() => toggleFavorite(detail.id)}>
-          <FontAwesome name={favoriteIconName} size={24} color="gold"/>
-        </TouchableOpacity>
-      ),
-    })
-  }, [navigation, detail, favoriteIconName])  
+  // useLayoutEffect(() => {
+  //   navigation.setOptions({
+  //     title: detail.category_name ? detail.category_name : "",
+  //     headerRight: () => (
+  //       <TouchableOpacity onPress={() => toggleFavorite(detail.id)}>
+  //         <FontAwesome name={favoriteIconName} size={24} color="gold"/>
+  //       </TouchableOpacity>
+  //     ),
+  //   })
+  // }, [navigation, detail, favoriteIconName])  
 
   const navigateToVideoDetail = useCallback((id) => {
     navigation.navigate('VideoDetail', { id });
@@ -149,12 +157,31 @@ const AnimeDetail: React.FC = () => {
   };
 
   return (
-    <Wrapper>
-      <Container>
-        <Info>
-          <InfoImage source={{ uri: `http://cdn.appanimeplus.tk/img/${detail.category_image}` }} />
-          {/* <InfoTitle>{detail.category_name}</InfoTitle> */}
-        </Info>
+    <Container> 
+      {/* <InfoImage source={{ uri: `http://cdn.appanimeplus.tk/img/${detail.category_image}` }} /> */}
+      <InfoImage source={{ uri: detail.category_image }}>
+        <Gradient
+          locations={[0, 0.2, 0.6, 0.93]}
+          colors={[
+            'rgba(0,0,0,0.5)',
+            'rgba(0,0,0,0.0)',
+            'rgba(0,0,0,0.0)',
+            'rgba(0,0,0,1)'
+          ]}>
+            <Header>
+              <Action onPress={navigation.goBack}>
+                <Feather name="arrow-left" size={24} color="#e2e2e2"/>
+              </Action>
+              <Action>
+                <Feather name="star" size={24} color="#e2e2e2"/>
+              </Action>
+            </Header>
+            <Info>
+              <InfoTitle>{detail.category_name}</InfoTitle>
+            </Info>
+        </Gradient>
+      </InfoImage>
+      <View style={{ marginHorizontal: 16 }}>
         <Description style={{ color: '#FFFFFF'}}>{detail.category_description}</Description>
         <Year>{detail.ano}</Year>
         <Genres>
@@ -162,15 +189,15 @@ const AnimeDetail: React.FC = () => {
           <GenresText>{item}</GenresText>
         ))}
         </Genres>
-        <Episodes>
-          <EpisodesTitle>Episódios</EpisodesTitle>
-          <FlatList
-            data={episodes}
-            renderItem={renderRow}
-          />
-        </Episodes>
-      </Container>
-    </Wrapper>
+      </View>
+      <Episodes>
+        <EpisodesTitle>Episódios</EpisodesTitle>
+        <FlatList
+          data={episodes}
+          renderItem={renderRow}
+        />
+      </Episodes>
+    </Container>
   );
 };
 

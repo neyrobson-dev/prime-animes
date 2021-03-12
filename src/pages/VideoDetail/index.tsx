@@ -13,6 +13,7 @@ import {
   Container,
   Actions,
   Action,
+  ActionText,
   Content,
   Title,
 } from './styles';
@@ -27,6 +28,7 @@ interface Stream {
   title: string,
   location: string,
   locationsd: string,
+  locationhd: string,
 }
 
 const VideoDetail: React.FC = () => {
@@ -34,6 +36,7 @@ const VideoDetail: React.FC = () => {
   const [videoLoad, setVideoLoad] = useState(false);
   const [epsodeId, setEpsodeId] = useState("");
   const [progress, setProgress] = useState<Number>(0);
+  const [url, setUrl] = useState("");
   const route = useRoute();
   const routeParams = route.params as RouteParams;
   const navigation = useNavigation();
@@ -44,26 +47,32 @@ const VideoDetail: React.FC = () => {
 
   useEffect(() => {
     async function loadStream(): Promise<void> {
-      await api.get('/api-animesbr-10.php', {
-        params: {
-          episodios: epsodeId
-        }
-      }).then(response => {
+      await api.get(`/episode/${epsodeId}`).then(response => {
         setStream(response.data[0]);
       });
     }
+    // async function loadStream(): Promise<void> {
+    //   await api.get('/api-animesbr-10.php', {
+    //     params: {
+    //       episodios: epsodeId
+    //     }
+    //   }).then(response => {
+    //     setStream(response.data[0]);
+    //   });
+    // }
 
     loadStream();
+    onLoadVideo(stream.location);
   }, [epsodeId]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       title: stream.title ? stream.title : "",
-      headerRight: () => (
-        <TouchableOpacity onPress={donwloadFile}>
-          <Feather name="download" size={24} color="white"/>
-        </TouchableOpacity>
-      ),
+      // headerRight: () => (
+      //   <TouchableOpacity onPress={donwloadFile}>
+      //     <Feather name="download" size={24} color="white"/>
+      //   </TouchableOpacity>
+      // ),
     })
   }, [navigation, stream])
 
@@ -100,6 +109,10 @@ const VideoDetail: React.FC = () => {
     setVideoLoad(true);
   }
 
+  const onLoadVideo = useCallback((url) => {
+    setUrl(url)
+  }, []);
+
   // if (!videoLoad) {
   //   return(
   //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -108,38 +121,54 @@ const VideoDetail: React.FC = () => {
   //   );
   // }
 
-  const donwloadFile = async () => {
-    var fileName = stream.title;    
-    const fileUri = FileSystem.documentDirectory + `${fileName.replace(/ /g, "-")}.mp4`;
-    const url = stream.location;
+  // const donwloadFile = async () => {
+  //   var fileName = stream.title;    
+  //   const fileUri = FileSystem.documentDirectory + `${fileName.replace(/ /g, "-")}.mp4`;
+  //   const url = stream.location;
   
-    let downloadObject = FileSystem.createDownloadResumable(
-      url,
-      fileUri
-    );
+  //   let downloadObject = FileSystem.createDownloadResumable(
+  //     url,
+  //     fileUri
+  //   );
 
-    try {
-      const response = await downloadObject.downloadAsync();
-      console.log('Finished downloading to ', response?.uri);
-    } catch (e) {
-      console.error(`Erro ao fazer download: ${e}`);
-    }
-  }  
+  //   try {
+  //     const response = await downloadObject.downloadAsync();
+  //     console.log('Finished downloading to ', response?.uri);
+  //   } catch (e) {
+  //     console.error(`Erro ao fazer download: ${e}`);
+  //   }
+  // }  
 
   return (
     <Wrapper>
+      <Actions>
+        {stream.location !== "" && (
+          <Action onPress={() => onLoadVideo(stream.location)}>
+            <ActionText>Normal</ActionText>
+          </Action>
+        )}
+        {stream.locationsd !== "" && (
+          <Action onPress={() => onLoadVideo(stream.locationsd)}>
+            <ActionText>SD</ActionText>
+          </Action>
+        )}
+        {stream.locationhd !== "" && (
+          <Action onPress={() => onLoadVideo(stream.locationhd)}>
+            <ActionText>HD</ActionText>
+          </Action>
+        )}
+      </Actions>
       <Container>
         <Video
-          source={{ uri: stream.location }}
+          source={{ uri: url }}
           rate={1.0}
           volume={1.0}
           isMuted={false}
           resizeMode="contain"
-          isLooping
           usePoster={true}
           posterSource={1}
           useNativeControls={videoLoad}
-          style={{ width: '100%', height: '60%' }}
+          style={{ width: '100%', height: '50%' }}
           onFullscreenUpdate={onFullscreenUpdate}
           onLoad={onLoad}
         />

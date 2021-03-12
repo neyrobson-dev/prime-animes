@@ -10,7 +10,8 @@ export const Container = styled.View``;
 export const Actions = styled.View`
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;  
+  justify-content: space-between;
+  margin-top: 8px;
 `;
 
 export const Action = styled.TouchableOpacity`

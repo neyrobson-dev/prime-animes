@@ -6,7 +6,8 @@ import {
     Label,
     MovieScroll,
     MovieCard,
-    MoviePoster
+    MoviePoster,
+    MovieTitle,
 } from './styles';
 
 interface Anime {
@@ -37,7 +38,8 @@ const Movies: React.FC = ({ label, item }) => {
         {animes.map((item) => {
           return (
             <MovieCard key={item.id} onPress={() => {navigateToAnimeDetail(item.id)}}>
-              <MoviePoster resizeMode='cover' source={{ uri: `http://cdn.appanimeplus.tk/img/${item.category_image}`}} />
+              <MoviePoster resizeMode='cover' source={{ uri: item.category_image }} />
+              <MovieTitle>{ ((item.category_name).length > 15) ? (((item.category_name).substring(0, 15-3)) + '...') : item.category_name }</MovieTitle>
             </MovieCard>
           )
         })}

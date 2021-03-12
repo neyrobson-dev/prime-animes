@@ -1,4 +1,5 @@
-import  React from 'react';
+import  React, { useCallback } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { Feather, Ionicons } from '@expo/vector-icons'
 import {
     Container,
@@ -13,33 +14,45 @@ import {
     TextButtonPlay
 } from './styles';
 
-const Hero: React.FC = () => {    
-    return (
-        <Container>
-            <Banner resizeMode='contain' source={require('../../assets/hero.png')} />
-            <Tags>
-				<MenuTag>Envolvente</MenuTag>
-				<Separator />
-				<MenuTag>Empolgantes</MenuTag>
-			</Tags>
-            <MenuHero>
-				<Button>
-					<Feather name='star' size={24} color='#FFF' />
-					<TextButton>Favoritos</TextButton>
-				</Button>
+const Hero: React.FC = ({ data }) => {
+  const navigation = useNavigation();
 
-				<Play>
-					<Ionicons name='ios-play' size={26} />
-					<TextButtonPlay>Assistir</TextButtonPlay>
-				</Play>
+  const navigateToAnimeDetail = useCallback((id) => {
+    navigation.navigate('AnimeDetail', { id });
+  }, [navigation]);
 
-				<Button>
-					<Feather name='info' size={22} color='#FFF' />
-					<TextButton>Saiba mais</TextButton>
-				</Button>
-			</MenuHero>
-        </Container>
-    );
+  const navigateToVideoDetail = useCallback((id) => {
+    navigation.navigate('VideoDetail', { id });
+  }, [navigation]);
+
+  console.log(data.category_code);
+
+  return (
+    <Container>
+      <Banner resizeMode='contain' source={{ uri: data.logo }} />
+      {/* <Tags>
+        <MenuTag>Envolvente</MenuTag>
+        <Separator />
+        <MenuTag>Empolgantes</MenuTag>
+      </Tags> */}
+      <MenuHero>
+        <Button>
+          <Feather name='star' size={24} color='#FFF' />
+          <TextButton>Favoritos</TextButton>
+        </Button>
+
+        <Play onPress={ () => navigateToVideoDetail(data.video_code)}>
+          <Ionicons name='ios-play' size={26} />
+          <TextButtonPlay>Assistir</TextButtonPlay>
+        </Play>
+
+        <Button onPress={ () => navigateToAnimeDetail(data.category_code)}>
+          <Feather name='info' size={22} color='#FFF' />
+          <TextButton>Saiba mais</TextButton>
+        </Button>
+      </MenuHero>
+    </Container>
+  );
 }
 
 export default Hero;

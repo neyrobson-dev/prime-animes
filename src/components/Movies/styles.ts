@@ -6,22 +6,32 @@ export const Container = styled.View`
 `;
 
 export const Label = styled.Text`
-  color: #fff;
+  color: #e2e2e2;
   font-size: 18px;
   font-weight: bold;
   margin: 0 0 5px 10px;
 `;
 
 export const MovieScroll = styled.ScrollView`
-  padding-left: 10px;
+  padding: 0 10px;
 `;
 
 export const MovieCard = styled.TouchableOpacity`
-  padding-right: 9px;
+  padding-right: 10px;
+  align-items: center;
 `;
 
 export const MoviePoster = styled.Image`
-  width: ${Math.round((Dimensions.get('window').width * 28) / 100)}px;
-  height: 150px;
-  border-radius: 5px;
+  width: 120px
+  height: 120px;
+  border-radius: 60px;
+  border-width: 3px;
+  border-color: #e2e2e2;
+`;
+
+export const MovieTitle = styled.Text`
+  color: #e2e2e2;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0 8px;
 `;

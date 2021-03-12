@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { StatusBar, FlatList, View, Text } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import { Feather, Ionicons } from '@expo/vector-icons'
 import api from '../../services/api';
 import { useNavigation } from '@react-navigation/native';
 
@@ -16,7 +16,7 @@ import {
   EpisodesLabel,
   MoviePoster,
   MovieCard,
-  MovieTitle
+  MovieTitle,
 } from './styles';
 
 export interface Latest {
@@ -26,13 +26,32 @@ export interface Latest {
   video_id: string;
 }
 
+interface Destaque {
+  id?: string;
+  description?: string;
+  logo?: string;
+  background?: string;
+  active?: string;
+  category_code?: string;
+  category_name?: string;
+  category_image?: string;
+}
+
 const Home: React.FC = () => {
   const navigation = useNavigation();
   const [latest, setLatest] = useState<Latest[]>([]);
+  const [poster, setPoster] = useState({} as Destaque);
 
   useEffect(() => {
-    api.get('/api-animesbr-10.php?latest').then(response => {
+    // api.get('/api-animesbr-10.php?latest').then(response => {
+    api.get('/latest').then(response => {
       setLatest(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    api.get('/poster').then(response => {
+      setPoster(response.data.data[0]);
     });
   }, []);
 
@@ -44,7 +63,7 @@ const Home: React.FC = () => {
     <>
       <StatusBar translucent backgroundColor='transparent' barStyle='light-content' />
       <Container>
-        <Poster source={require('../../assets/poster.jpg')}>
+        <Poster source={{ uri: poster.background }}>
           <Gradient
             locations={[0, 0.2, 0.6, 0.93]}
             colors={[
@@ -54,11 +73,12 @@ const Home: React.FC = () => {
               'rgba(0,0,0,1)'
             ]}>
               <Header />
-              <Hero />
+              <Hero data={poster} />
           </Gradient>
         </Poster>
 
-        <Movies label='Populares' item='/api-animesbr-10.php?populares' />
+        <Movies label='Populares' item='/popular' />
+        {/* <Movies label='Populares' item='/api-animesbr-10.php?populares' /> */}
         {/* <Movies label='Favoritos' item='/api-animesbr-10.php?populares' /> */}
 
         <Episodes>
@@ -70,7 +90,7 @@ const Home: React.FC = () => {
             renderItem={({ item }) => {
               return (
                 <MovieCard onPress={() => {navigateToVideoDetail(item.video_id)}}>
-                  <MoviePoster resizeMode='cover' source={{ uri: `http://cdn.appanimeplus.tk/img/${item.category_image}`}} />
+                  <MoviePoster resizeMode='cover' source={{ uri: item.category_image}} />
                   <MovieTitle>{ ((item.title).length > 20) ? (((item.title).substring(0, 20-3)) + '...') : item.title }</MovieTitle>
                 </MovieCard>
               );

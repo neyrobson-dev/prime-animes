@@ -37,10 +37,10 @@ const AppRoutes: React.FC = () => (
         name="AnimeDetail"
         component={AnimeDetail}
         options={{
-          headerShown: true,
+          headerShown: false,
           gestureEnabled: false,
           headerStyle: {
-            backgroundColor: '#121212',
+            backgroundColor: 'transparent',
           },
           headerTintColor: '#fff',
           headerRight: () => (
@@ -64,14 +64,14 @@ const AppRoutes: React.FC = () => (
             backgroundColor: '#121212',
           },
           headerTintColor: '#fff',
-          headerRight: () => (
-            <TouchableOpacity>
-              <Feather name="download" size={24} color="white"/>
-            </TouchableOpacity>
-          ),
-          headerRightContainerStyle: {
-            marginRight: 16,
-          },
+          // headerRight: () => (
+          //   <TouchableOpacity>
+          //     <Feather name="download" size={24} color="white"/>
+          //   </TouchableOpacity>
+          // ),
+          // headerRightContainerStyle: {
+          //   marginRight: 16,
+          // },
         }}
       />
 

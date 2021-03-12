@@ -8,7 +8,8 @@ export const Container = styled.View`
 `
 
 export const Banner = styled.Image`
-	height: 100px;
+  width: 300px;
+	height: 100px;  
 `
 
 export const Tags = styled.View`
@@ -16,10 +17,10 @@ export const Tags = styled.View`
 	align-items: center;
 	justify-content: center;
 	margin-top: 20px;
-`
+`;
 
 export const MenuTag = styled.Text`
-	color: #fff;
+	color: #e2e2e2;
 	padding: 0 8px;
 	font-size: 13px;
 `
@@ -44,14 +45,14 @@ export const Button = styled.TouchableOpacity`
 `
 
 export const TextButton = styled.Text`
-	color: #fff;
+	color: #e2e2e2;
 	font-size: 11px;
 	margin-top: 3px;
 `
 
 export const Play = styled.TouchableOpacity`
 	flex-direction: row;
-	background-color: #fff;
+	background-color: #e2e2e2;
 	width: 130px;
 	height: 40px;
 	border-radius: 2px;

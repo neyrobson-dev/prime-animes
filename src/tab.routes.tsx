@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Feather } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 import Home from './screens/Home';
 import Category from './screens/Category';
@@ -29,7 +29,7 @@ const TabRoutes: React.FC = () => (
   >
     <Tab.Screen
       options={{
-        tabBarIcon: ({ color }) => <Feather size={20} name="home" color={color} />,
+        tabBarIcon: ({ color }) => <AntDesign size={20} name="home" color={color} />,
         title: 'Inicio',
       }}
       name="Home"
@@ -38,7 +38,7 @@ const TabRoutes: React.FC = () => (
 
     <Tab.Screen
       options={{
-        tabBarIcon: ({ color }) => <Feather size={20} name="list" color={color} />,
+        tabBarIcon: ({ color }) => <AntDesign size={20} name="bars" color={color} />,
         title: 'Categorias',
       }}
       name="Category"
@@ -47,7 +47,7 @@ const TabRoutes: React.FC = () => (
     
     <Tab.Screen
       options={{
-        tabBarIcon: ({ color }) => <Feather size={20} name="search" color={color} />,
+        tabBarIcon: ({ color }) => <AntDesign size={20} name="search1" color={color} />,
         title: 'Buscar',
       }}
       name="Search"
@@ -56,7 +56,7 @@ const TabRoutes: React.FC = () => (
 
     {/* <Tab.Screen
       options={{
-        tabBarIcon: ({ color }) => <Feather size={20} name="download" color={color} />,
+        tabBarIcon: ({ color }) => <AntDesign size={20} name="download" color={color} />,
         title: 'Downloads',
       }}
       name="Download"
@@ -65,7 +65,7 @@ const TabRoutes: React.FC = () => (
 
     {/* <Tab.Screen
       options={{
-        tabBarIcon: ({ color }) => <Feather size={20} name="star" color={color} />,
+        tabBarIcon: ({ color }) => <AntDesign size={20} name="star" color={color} />,
         title: 'Favoritos',
       }}
       name="Favorite"

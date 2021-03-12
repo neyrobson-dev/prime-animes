@@ -156,7 +156,7 @@ const Category: React.FC = () => {
   return (
     <Wrapper>
       <Header>
-        <HeaderText>Animes Mobile</HeaderText>
+        <HeaderText>Categorias</HeaderText>
       </Header>
       <Container>
         <CategoryList>
