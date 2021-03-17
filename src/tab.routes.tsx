@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
 
 import Home from './screens/Home';
 import Category from './screens/Category';
@@ -29,8 +29,8 @@ const TabRoutes: React.FC = () => (
   >
     <Tab.Screen
       options={{
-        tabBarIcon: ({ color }) => <AntDesign size={20} name="home" color={color} />,
-        title: 'Inicio',
+        tabBarIcon: ({ color }) => <FontAwesome5 size={20} name="torii-gate" color={color} />,
+        title: 'Home',
       }}
       name="Home"
       component={Home}
@@ -38,7 +38,7 @@ const TabRoutes: React.FC = () => (
 
     <Tab.Screen
       options={{
-        tabBarIcon: ({ color }) => <AntDesign size={20} name="bars" color={color} />,
+        tabBarIcon: ({ color }) => <FontAwesome5 size={20} name="list" color={color} />,
         title: 'Categorias',
       }}
       name="Category"
@@ -47,7 +47,7 @@ const TabRoutes: React.FC = () => (
     
     <Tab.Screen
       options={{
-        tabBarIcon: ({ color }) => <AntDesign size={20} name="search1" color={color} />,
+        tabBarIcon: ({ color }) => <FontAwesome5 size={20} name="search" color={color} />,
         title: 'Buscar',
       }}
       name="Search"

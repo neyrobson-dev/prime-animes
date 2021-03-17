@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
-import api from '../../services/api';
+import axios from 'axios';
 import { Feather } from '@expo/vector-icons';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {
     Wrapper,
@@ -30,7 +30,7 @@ const Search: React.FC = () => {
     const onChangeText = useCallback(async (value) => {
         if (value.length > 2) {
             setLoading(true);
-            await api.get(`/api-animesbr-10.php?search=${value}`).then(response => {
+            await axios.get(`https://appanimeplus.tk/api-animesbr-10.php?search=${value}`).then(response => {
                 if (!response.data)
                     setAnimes([]);
                 else

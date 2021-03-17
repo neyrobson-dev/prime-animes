@@ -10,6 +10,7 @@ import AnimeDetail from './pages/AnimeDetail';
 import VideoDetail from './pages/VideoDetail';
 import ListCategory from './pages/ListCategory';
 import ListLetter from './pages/ListLetter';
+import ListMovies from './pages/ListMovies';
 
 const App = createStackNavigator();
 
@@ -43,14 +44,14 @@ const AppRoutes: React.FC = () => (
             backgroundColor: 'transparent',
           },
           headerTintColor: '#fff',
-          headerRight: () => (
-            <TouchableOpacity>
-              <FontAwesome name="star-o" size={24} color="white"/>
-            </TouchableOpacity>
-          ),
-          headerRightContainerStyle: {
-            marginRight: 16,
-          },
+          // headerRight: () => (
+          //   <TouchableOpacity>
+          //     <FontAwesome name="star-o" size={24} color="white"/>
+          //   </TouchableOpacity>
+          // ),
+          // headerRightContainerStyle: {
+          //   marginRight: 16,
+          // },
         }}
       />
 
@@ -100,6 +101,20 @@ const AppRoutes: React.FC = () => (
           headerTintColor: '#fff',
         }}
       />
+
+      <App.Screen
+        name="ListMovies"
+        component={ListMovies}
+        options={{
+          headerShown: true,
+          gestureEnabled: false,
+          headerStyle: {
+            backgroundColor: '#121212',
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+      
     </App.Navigator>
   </NavigationContainer>
 );

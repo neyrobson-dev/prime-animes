@@ -4,6 +4,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
 import { Feather, FontAwesome, AntDesign } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
+import { setStatusBarBackgroundColor, StatusBar } from 'expo-status-bar';
 
 import {
   Wrapper,
@@ -51,6 +52,7 @@ const AnimeDetail: React.FC = () => {
   const [episodes, setEpisodes] = useState<EpisodesList[]>([]);
   const [favorites, setFavorites] = useState<Detail[]>([]);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [statusBarColor, setStatusBarColor] = useState('transparent');
   const route = useRoute();
   const routeParams = route.params as RouteParams;
   const navigation = useNavigation();
@@ -148,6 +150,14 @@ const AnimeDetail: React.FC = () => {
     return [];
   }
 
+  const captureScroll = useCallback((event: Object) => {
+    if (event.nativeEvent.contentOffset.y > 300) {
+      setStatusBarColor('#000000');
+    } else if (event.nativeEvent.contentOffset.y <= 300) {
+      setStatusBarColor('transparent');
+    }
+  }, []);
+
   const renderRow = ({item}) => {
     return (
       <EpisodeItem onPress={() => {navigateToVideoDetail(item.video_id)}}>
@@ -157,7 +167,12 @@ const AnimeDetail: React.FC = () => {
   };
 
   return (
-    <Container> 
+    <>
+    <StatusBar style="light" backgroundColor={statusBarColor} />
+    <Container
+      onScroll={event => {captureScroll(event)} }
+      scrollEventThrottle={160}
+    > 
       {/* <InfoImage source={{ uri: `http://cdn.appanimeplus.tk/img/${detail.category_image}` }} /> */}
       <InfoImage source={{ uri: detail.category_image }}>
         <Gradient
@@ -172,9 +187,9 @@ const AnimeDetail: React.FC = () => {
               <Action onPress={navigation.goBack}>
                 <Feather name="arrow-left" size={24} color="#e2e2e2"/>
               </Action>
-              <Action>
+              {/* <Action>
                 <Feather name="star" size={24} color="#e2e2e2"/>
-              </Action>
+              </Action> */}
             </Header>
             <Info>
               <InfoTitle>{detail.category_name}</InfoTitle>
@@ -198,6 +213,7 @@ const AnimeDetail: React.FC = () => {
         />
       </Episodes>
     </Container>
+    </>
   );
 };
 

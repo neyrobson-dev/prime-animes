@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect, useCallback, useState } from 'react'
 import { Text, View, Image, Platform, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { Feather, FontAwesome } from '@expo/vector-icons';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import api from '../../services/api';
+import axios from 'axios';
 import { Video, VideoFullscreenUpdateEvent } from 'expo-av';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import * as FileSystem from 'expo-file-system';
@@ -47,23 +47,18 @@ const VideoDetail: React.FC = () => {
 
   useEffect(() => {
     async function loadStream(): Promise<void> {
-      await api.get(`/episode/${epsodeId}`).then(response => {
+      await axios.get('https://appanimeplus.tk/api-animesbr-10.php', {
+        params: {
+          episodios: epsodeId
+        }
+      }).then(response => {
         setStream(response.data[0]);
       });
     }
-    // async function loadStream(): Promise<void> {
-    //   await api.get('/api-animesbr-10.php', {
-    //     params: {
-    //       episodios: epsodeId
-    //     }
-    //   }).then(response => {
-    //     setStream(response.data[0]);
-    //   });
-    // }
 
     loadStream();
     onLoadVideo(stream.location);
-  }, [epsodeId]);
+  }, [epsodeId, stream]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -77,13 +72,13 @@ const VideoDetail: React.FC = () => {
   }, [navigation, stream])
 
   const nextVideo = async () => {
-    await api.get(`/api-animesbr-10.php?episodios=${stream.video_id}&catid=${stream.category_id}&next`).then(response => {
+    await axios.get(`https://appanimeplus.tk/api-animesbr-10.php?episodios=${stream.video_id}&catid=${stream.category_id}&next`).then(response => {
       setEpsodeId(response.data[0].video_id);
     });
   }
 
   const previousVideo = async () => {
-    await api.get(`/api-animesbr-10.php?episodios=${stream.video_id}&catid=${stream.category_id}&previous`).then(response => {
+    await axios.get(`https://appanimeplus.tk/api-animesbr-10.php?episodios=${stream.video_id}&catid=${stream.category_id}&previous`).then(response => {
       setEpsodeId(response.data[0].video_id);
     });
   }
@@ -142,17 +137,17 @@ const VideoDetail: React.FC = () => {
   return (
     <Wrapper>
       <Actions>
-        {stream.location !== "" && (
+        {stream.location != "" && (
           <Action onPress={() => onLoadVideo(stream.location)}>
             <ActionText>Normal</ActionText>
           </Action>
         )}
-        {stream.locationsd !== "" && (
+        {stream.locationsd != "" && (
           <Action onPress={() => onLoadVideo(stream.locationsd)}>
             <ActionText>SD</ActionText>
           </Action>
         )}
-        {stream.locationhd !== "" && (
+        {stream.locationhd != "" && (
           <Action onPress={() => onLoadVideo(stream.locationhd)}>
             <ActionText>HD</ActionText>
           </Action>

@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import { StatusBar, FlatList, View, Text } from 'react-native';
+import { FlatList, View, Text } from 'react-native';
 import { Feather, Ionicons } from '@expo/vector-icons'
 import api from '../../services/api';
 import { useNavigation } from '@react-navigation/native';
@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import Header from '../../components/Header';
 import Hero from '../../components/Hero';
 import Movies from '../../components/Movies';
+import { StatusBar } from 'expo-status-bar';
 
 import {
   Container,
@@ -41,6 +42,7 @@ const Home: React.FC = () => {
   const navigation = useNavigation();
   const [latest, setLatest] = useState<Latest[]>([]);
   const [poster, setPoster] = useState({} as Destaque);
+  const [statusBarColor, setStatusBarColor] = useState('transparent');
 
   useEffect(() => {
     // api.get('/api-animesbr-10.php?latest').then(response => {
@@ -59,10 +61,21 @@ const Home: React.FC = () => {
     navigation.navigate('VideoDetail', { id });
   }, [navigation]);
 
+  const captureScroll = useCallback((event: Object) => {
+    if (event.nativeEvent.contentOffset.y > 300) {
+      setStatusBarColor('#000000');
+    } else if (event.nativeEvent.contentOffset.y <= 300) {
+      setStatusBarColor('transparent');
+    }
+  }, []);
+
   return (
     <>
-      <StatusBar translucent backgroundColor='transparent' barStyle='light-content' />
-      <Container>
+      <StatusBar style="light" backgroundColor={statusBarColor} />
+      <Container
+        onScroll={event => {captureScroll(event)} }
+        scrollEventThrottle={160}
+      > 
         <Poster source={{ uri: poster.background }}>
           <Gradient
             locations={[0, 0.2, 0.6, 0.93]}
@@ -72,7 +85,7 @@ const Home: React.FC = () => {
               'rgba(0,0,0,0.0)',
               'rgba(0,0,0,1)'
             ]}>
-              <Header />
+              {/* <Header /> */}
               <Hero data={poster} />
           </Gradient>
         </Poster>
