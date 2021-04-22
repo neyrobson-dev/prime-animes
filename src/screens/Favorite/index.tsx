@@ -23,14 +23,11 @@ const Favorite: React.FC = () => {
     const [animes, setAnimes] = useState<Anime[]>([]);
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
-
-    console.log(animes.length);
     
     useEffect(() => {        
         async function loadFavorites() {      
             const value = await AsyncStorage.getItem('@favorites');
             const obj = JSON.parse(value);
-            console.log(value);
             if (obj.length > 0)
                 setAnimes(obj);
             else

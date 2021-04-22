@@ -59,7 +59,7 @@ const AnimeDetail: React.FC = () => {
 
   useEffect(() => {
     async function loadDetail(): Promise<void> {
-      // await api.get('/api-animesbr-10.php', {
+      // await api.get('/api-animesbr-11.php', {
       //   params: {
       //     info: routeParams.id
       //   }
@@ -77,7 +77,7 @@ const AnimeDetail: React.FC = () => {
 
   // useEffect(() => {
   //   async function loadEpisodes(): Promise<void> {
-  //     await api.get('/api-animesbr-10.php', {
+  //     await api.get('/api-animesbr-11.php', {
   //       params: {
   //         cat_id: routeParams.id
   //       }

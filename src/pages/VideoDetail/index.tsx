@@ -45,18 +45,16 @@ const VideoDetail: React.FC = () => {
     setEpsodeId(routeParams.id);
   }, []);
 
+  console.log(stream);
+
   useEffect(() => {
     async function loadStream(): Promise<void> {
-      await axios.get('https://appanimeplus.tk/api-animesbr-10.php', {
-        params: {
-          episodios: epsodeId
-        }
-      }).then(response => {
+      await axios.get(`https://appanimeplus.tk/api-animesbr-10.php?episodios=${epsodeId}`).then((response: any) => {
         setStream(response.data[0]);
       });
     }
 
-    loadStream();
+    loadStream();    
     onLoadVideo(stream.location);
   }, [epsodeId, stream]);
 
@@ -72,13 +70,13 @@ const VideoDetail: React.FC = () => {
   }, [navigation, stream])
 
   const nextVideo = async () => {
-    await axios.get(`https://appanimeplus.tk/api-animesbr-10.php?episodios=${stream.video_id}&catid=${stream.category_id}&next`).then(response => {
+    await axios.get(`https://appanimeplus.tk/api-animesbr-11.php?episodios=${stream.video_id}&catid=${stream.category_id}&next`).then(response => {
       setEpsodeId(response.data[0].video_id);
     });
   }
 
   const previousVideo = async () => {
-    await axios.get(`https://appanimeplus.tk/api-animesbr-10.php?episodios=${stream.video_id}&catid=${stream.category_id}&previous`).then(response => {
+    await axios.get(`https://appanimeplus.tk/api-animesbr-11.php?episodios=${stream.video_id}&catid=${stream.category_id}&previous`).then(response => {
       setEpsodeId(response.data[0].video_id);
     });
   }

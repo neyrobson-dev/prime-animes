@@ -30,7 +30,7 @@ const Search: React.FC = () => {
     const onChangeText = useCallback(async (value) => {
         if (value.length > 2) {
             setLoading(true);
-            await axios.get(`https://appanimeplus.tk/api-animesbr-10.php?search=${value}`).then(response => {
+            await axios.get(`https://appanimeplus.tk/api-animesbr-11.php?search=${value}`).then(response => {
                 if (!response.data)
                     setAnimes([]);
                 else

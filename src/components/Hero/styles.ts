@@ -52,10 +52,11 @@ export const TextButton = styled.Text`
 
 export const Play = styled.TouchableOpacity`
 	flex-direction: row;
-	background-color: #e2e2e2;
 	width: 130px;
 	height: 40px;
-	border-radius: 2px;
+	border-radius: 10px;
+	border-width: 1px;
+	border-color: #e2e2e2;
 	align-items: center;
 	justify-content: center;
 `
@@ -64,4 +65,5 @@ export const TextButtonPlay = styled.Text`
 	font-size: 15px;
 	font-weight: bold;
 	padding-left: 5px;
+	color: #e2e2e2;
 `

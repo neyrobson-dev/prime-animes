@@ -33,7 +33,7 @@ const ListLetter: React.FC = () => {
     useEffect(() => {
       setLoading(true);
       async function loadDetail(): Promise<void> {
-        await api.get('/api-animesbr-10.php', {
+        await api.get('/api-animesbr-11.php', {
         params: {
           letra: routeParams.letter
         }

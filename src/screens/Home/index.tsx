@@ -44,17 +44,36 @@ const Home: React.FC = () => {
   const [poster, setPoster] = useState({} as Destaque);
   const [statusBarColor, setStatusBarColor] = useState('transparent');
 
+  // useEffect(() => {
+  //   // api.get('/api-animesbr-11.php?latest').then(response => {
+  //   api.get('/latest').then(response => {
+  //     setLatest(response.data);
+  //   });
+  // }, []);
+
   useEffect(() => {
-    // api.get('/api-animesbr-10.php?latest').then(response => {
-    api.get('/latest').then(response => {
-      setLatest(response.data);
-    });
+    // setLoading(true);
+    async function loadLatest(): Promise<void> {
+      await api.get('/latest').then(function (response) {
+        setLatest(response.data);
+      }).catch(function (error) {        
+        console.log(error)
+      });
+    }
+
+    loadLatest();
   }, []);
 
   useEffect(() => {
-    api.get('/poster').then(response => {
-      setPoster(response.data.data[0]);
-    });
+    async function loadPoster(): Promise<void> {
+      await api.get('/poster').then(response => {
+        setPoster(response.data.data[0]);
+      }).catch(function (error) {        
+        console.log(error)
+      });
+    }
+
+    loadPoster();
   }, []);
 
   const navigateToVideoDetail = useCallback((id) => {
@@ -91,8 +110,8 @@ const Home: React.FC = () => {
         </Poster>
 
         <Movies label='Populares' item='/popular' />
-        {/* <Movies label='Populares' item='/api-animesbr-10.php?populares' /> */}
-        {/* <Movies label='Favoritos' item='/api-animesbr-10.php?populares' /> */}
+        {/* <Movies label='Populares' item='/api-animesbr-11.php?populares' /> */}
+        {/* <Movies label='Favoritos' item='/api-animesbr-11.php?populares' /> */}
 
         <Episodes>
           <EpisodesLabel>Novos Episódios</EpisodesLabel>

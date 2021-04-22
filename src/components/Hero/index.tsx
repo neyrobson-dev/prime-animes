@@ -25,8 +25,6 @@ const Hero: React.FC = ({ data }) => {
     navigation.navigate('VideoDetail', { id });
   }, [navigation]);
 
-  console.log(data.category_code);
-
   return (
     <Container>
       <Banner resizeMode='contain' source={{ uri: data.logo }} />
@@ -42,7 +40,7 @@ const Hero: React.FC = ({ data }) => {
         </Button>
 
         <Play onPress={ () => navigateToVideoDetail(data.video_code)}>
-          <Ionicons name='ios-play' size={26} />
+          <Ionicons name='ios-play' size={26} color="#e2e2e2" />
           <TextButtonPlay>Assistir</TextButtonPlay>
         </Play>
 
