@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { FlatList, View, Text } from 'react-native';
 import { Feather, Ionicons } from '@expo/vector-icons'
+import axios from 'axios';
 import api from '../../services/api';
 import { useNavigation } from '@react-navigation/native';
 
@@ -44,25 +45,28 @@ const Home: React.FC = () => {
   const [poster, setPoster] = useState({} as Destaque);
   const [statusBarColor, setStatusBarColor] = useState('transparent');
 
-  // useEffect(() => {
-  //   api.get('/meuanimetv-40.php?latest').then(response => {
-  //   // api.get('/latest').then(response => {
-  //     setLatest(response.data);
-  //   });
-  // }, []);
-
   useEffect(() => {
-    // setLoading(true);
     async function loadLatest(): Promise<void> {
-      await api.get('/latest').then(function (response) {
+      await axios.get('https://appanimeplus.tk/meuanimetv-40.php?latest').then(response => {
         setLatest(response.data);
-      }).catch(function (error) {        
-        console.log(error)
       });
     }
 
     loadLatest();
   }, []);
+
+  // useEffect(() => {
+  //   // setLoading(true);
+  //   async function loadLatest(): Promise<void> {
+  //     await api.get('/latest').then(function (response) {
+  //       setLatest(response.data);
+  //     }).catch(function (error) {        
+  //       console.log(error)
+  //     });
+  //   }
+
+  //   loadLatest();
+  // }, []);
 
   useEffect(() => {
     async function loadPoster(): Promise<void> {
@@ -122,7 +126,7 @@ const Home: React.FC = () => {
             renderItem={({ item }) => {
               return (
                 <MovieCard onPress={() => {navigateToVideoDetail(item.video_id)}}>
-                  <MoviePoster resizeMode='cover' source={{ uri: item.category_image}} />
+                  <MoviePoster resizeMode='cover' source={{ uri: `http://cdn.appanimeplus.tk/img/${item.category_image}` }} />
                   <MovieTitle>{ ((item.title).length > 20) ? (((item.title).substring(0, 20-3)) + '...') : item.title }</MovieTitle>
                 </MovieCard>
               );
