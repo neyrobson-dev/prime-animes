@@ -45,8 +45,8 @@ const Home: React.FC = () => {
   const [statusBarColor, setStatusBarColor] = useState('transparent');
 
   // useEffect(() => {
-  //   // api.get('/meuanimetv-40.php?latest').then(response => {
-  //   api.get('/latest').then(response => {
+  //   api.get('/meuanimetv-40.php?latest').then(response => {
+  //   // api.get('/latest').then(response => {
   //     setLatest(response.data);
   //   });
   // }, []);

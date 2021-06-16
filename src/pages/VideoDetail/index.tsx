@@ -49,7 +49,7 @@ const VideoDetail: React.FC = () => {
 
   useEffect(() => {
     async function loadStream(): Promise<void> {
-      await axios.get(`https://appanimeplus.tk/api-animesbr-10.php?episodios=${epsodeId}`).then((response: any) => {
+      await axios.get(`https://appanimeplus.tk/meuanimetv-40.php?episodios=${epsodeId}`).then((response: any) => {
         setStream(response.data[0]);
       });
     }
