@@ -45,7 +45,7 @@ const Home: React.FC = () => {
   const [statusBarColor, setStatusBarColor] = useState('transparent');
 
   // useEffect(() => {
-  //   // api.get('/api-animesbr-11.php?latest').then(response => {
+  //   // api.get('/meuanimetv-40.php?latest').then(response => {
   //   api.get('/latest').then(response => {
   //     setLatest(response.data);
   //   });
@@ -104,14 +104,14 @@ const Home: React.FC = () => {
               'rgba(0,0,0,0.0)',
               'rgba(0,0,0,1)'
             ]}>
-              {/* <Header /> */}
+              <Header />
               <Hero data={poster} />
           </Gradient>
         </Poster>
 
         <Movies label='Populares' item='/popular' />
-        {/* <Movies label='Populares' item='/api-animesbr-11.php?populares' /> */}
-        {/* <Movies label='Favoritos' item='/api-animesbr-11.php?populares' /> */}
+        {/* <Movies label='Populares' item='/meuanimetv-40.php?populares' /> */}
+        {/* <Movies label='Favoritos' item='/meuanimetv-40.php?populares' /> */}
 
         <Episodes>
           <EpisodesLabel>Novos Episódios</EpisodesLabel>

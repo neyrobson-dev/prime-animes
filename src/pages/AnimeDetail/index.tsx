@@ -1,7 +1,8 @@
 import React, { useEffect, useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import { TouchableOpacity, FlatList, View } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import api from '../../services/api';
+// import api from '../../services/api';
+import axios from 'axios';
 import { Feather, FontAwesome, AntDesign } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
 import { setStatusBarBackgroundColor, StatusBar } from 'expo-status-bar';
@@ -59,35 +60,35 @@ const AnimeDetail: React.FC = () => {
 
   useEffect(() => {
     async function loadDetail(): Promise<void> {
-      // await api.get('/api-animesbr-11.php', {
-      //   params: {
-      //     info: routeParams.id
-      //   }
-      // }).then(response => {
-      //   setDetail(response.data[0]);
-      // });
-      await api.get(`/anime-info/${routeParams.id}`).then(response => {
-        setDetail(response.data.info);
-        setEpisodes(response.data.episodes);
+      await axios.get('https://appanimeplus.tk/meuanimetv-40.php', {
+        params: {
+          info: routeParams.id
+        }
+      }).then(response => {
+        setDetail(response.data[0]);
       });
+      // await api.get(`/anime-info/${routeParams.id}`).then(response => {
+      //   setDetail(response.data.info);
+      //   setEpisodes(response.data.episodes);
+      // });
     }
 
     loadDetail();
   }, [routeParams]);
 
-  // useEffect(() => {
-  //   async function loadEpisodes(): Promise<void> {
-  //     await api.get('/api-animesbr-11.php', {
-  //       params: {
-  //         cat_id: routeParams.id
-  //       }
-  //     }).then(response => {
-  //       setEpisodes(response.data);
-  //     });
-  //   }
+  useEffect(() => {
+    async function loadEpisodes(): Promise<void> {
+      await axios.get('https://appanimeplus.tk/meuanimetv-40.php', {
+        params: {
+          cat_id: routeParams.id
+        }
+      }).then(response => {
+        setEpisodes(response.data);
+      });
+    }
 
-  //   loadEpisodes();
-  // }, [routeParams]);
+    loadEpisodes();
+  }, [routeParams]);
 
   // useEffect(() => {
   //   async function loadFavorites() {
@@ -172,9 +173,8 @@ const AnimeDetail: React.FC = () => {
     <Container
       onScroll={event => {captureScroll(event)} }
       scrollEventThrottle={160}
-    > 
-      {/* <InfoImage source={{ uri: `http://cdn.appanimeplus.tk/img/${detail.category_image}` }} /> */}
-      <InfoImage source={{ uri: detail.category_image }}>
+    >       
+      <InfoImage source={{ uri: `http://cdn.appanimeplus.tk/img/${detail.category_image}` }} >
         <Gradient
           locations={[0, 0.2, 0.6, 0.93]}
           colors={[

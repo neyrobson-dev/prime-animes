@@ -34,7 +34,7 @@ const ListMovies: React.FC = () => {
     useEffect(() => {
       setLoading(true);
       async function loadDetail(): Promise<void> {
-        await api.get('/api-animesbr-11.php', {
+        await api.get('/meuanimetv-40.php', {
         params: {
           categoria: routeParams.slug
         }

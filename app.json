@@ -2,7 +2,7 @@
   "expo": {
     "name": "Animes Mobile",
     "slug": "AnimesMobile",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -19,7 +19,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.ncoding.animesmobile",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.1"
     },
     "android": {
       "adaptiveIcon": {

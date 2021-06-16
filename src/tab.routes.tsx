@@ -35,15 +35,6 @@ const TabRoutes: React.FC = () => (
       name="Home"
       component={Home}
     />    
-
-    <Tab.Screen
-      options={{
-        tabBarIcon: ({ color }) => <FontAwesome5 size={20} name="list" color={color} />,
-        title: 'Categorias',
-      }}
-      name="Category"
-      component={Category}
-    />
     
     <Tab.Screen
       options={{
@@ -52,6 +43,15 @@ const TabRoutes: React.FC = () => (
       }}
       name="Search"
       component={Search}
+    />
+
+    <Tab.Screen
+      options={{
+        tabBarIcon: ({ color }) => <FontAwesome5 size={20} name="list" color={color} />,
+        title: 'Categorias',
+      }}
+      name="Category"
+      component={Category}
     />
 
     {/* <Tab.Screen

@@ -70,13 +70,13 @@ const VideoDetail: React.FC = () => {
   }, [navigation, stream])
 
   const nextVideo = async () => {
-    await axios.get(`https://appanimeplus.tk/api-animesbr-11.php?episodios=${stream.video_id}&catid=${stream.category_id}&next`).then(response => {
+    await axios.get(`https://appanimeplus.tk/meuanimetv-40.php?episodios=${stream.video_id}&catid=${stream.category_id}&next`).then(response => {
       setEpsodeId(response.data[0].video_id);
     });
   }
 
   const previousVideo = async () => {
-    await axios.get(`https://appanimeplus.tk/api-animesbr-11.php?episodios=${stream.video_id}&catid=${stream.category_id}&previous`).then(response => {
+    await axios.get(`https://appanimeplus.tk/meuanimetv-40.php?episodios=${stream.video_id}&catid=${stream.category_id}&previous`).then(response => {
       setEpsodeId(response.data[0].video_id);
     });
   }
