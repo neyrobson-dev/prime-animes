@@ -41,15 +41,16 @@ const VideoDetail: React.FC = () => {
   const routeParams = route.params as RouteParams;
   const navigation = useNavigation();
 
+  const STREAMING_DATA_TOKEN = '32489800000000';
+  const STREAMING_DATA_R = '10000';
+
   useEffect(() => {
     setEpsodeId(routeParams.id);
   }, []);
 
-  console.log(stream);
-
   useEffect(() => {
     async function loadStream(): Promise<void> {
-      await axios.get(`https://appanimeplus.tk/meuanimetv-40.php?episodios=${epsodeId}`).then((response: any) => {
+      await axios.get(`https://appanimeplus.tk/meuanimetv-40.php?episodios=${epsodeId}&token=${STREAMING_DATA_TOKEN}&r=${STREAMING_DATA_R}`).then((response: any) => {
         setStream(response.data[0]);
       });
     }
